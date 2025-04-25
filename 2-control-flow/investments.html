@@ -98,16 +98,39 @@ console.log("DONE!")
 
 
 
-
-
-
-
-
-
-
-
         console.log("---------------------")
+
+        
         console.log("PART 3...")
+
+        // Create a function to run the simulation
+        function runSimulation() {
+            // Get the values from the input fields
+            var initialBalance = parseFloat(document.getElementById("initialBalance").value);
+            var desiredBalance = parseFloat(document.getElementById("desiredBalance").value);
+            var mean = parseFloat(document.getElementById("mean").value);
+            var stdDev = parseFloat(document.getElementById("stdDev").value);
+
+            // Initialize variables
+            var balance = initialBalance;
+            var year = 0;
+            var rateGenerator = d3.randomNormal(mean, stdDev);
+
+            // Run the simulation
+            while (balance < desiredBalance) {
+                var rate = rateGenerator();
+                year++;
+                balance *= (1 + rate);
+                console.log(year, balance); // for each year
+            }
+
+            // Display the results
+            document.getElementById("result").innerHTML = `It took ${year} years to reach ${formatUSD(balance)}.`;
+            console.log("DONE!");
+            console.log(year, balance); // after the loop has finished  
+
+
+        }       
 
 
 
